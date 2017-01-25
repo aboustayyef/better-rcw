@@ -40,11 +40,7 @@ class getLatestStories extends Command
      */
     public function handle()
     {
-        // $articlesList = (new Articles)->list;
-        // $articlesList->each(function($article){
-        //     echo "\n". $article->description ;
-        // });
 
-        \Mail::to('mustapha.hamoui@gmail.com')->send(new \App\Mail\OrderShipped);
+        \Mail::to('mustapha.hamoui@gmail.com')->send(new \App\Mail\NewsletterSent);
     }
 }

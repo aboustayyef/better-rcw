@@ -18,7 +18,7 @@ class Articles
 
         // use caching so we don't have to make an http request every time
         if (! \Cache::has('pageContent')) {
-            \Cache::put('pageContent', file_get_contents('http://realclearworld.com'), 30000);
+            \Cache::put('pageContent', file_get_contents('http://realclearworld.com'), 10);
         }
 
         $c->addHtmlContent(\Cache::get('pageContent'));
@@ -42,7 +42,7 @@ class Articles
         $nodesCollection->splice(20);
 
         $this->list = $nodesCollection->map(function($node){
-            return new Article($node->text(), $node->attr('href'));
+            return new Article($node->attr('href') , $node->text() );
         });
 
     }

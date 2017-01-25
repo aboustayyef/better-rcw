@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use \App\Articles;
 
-class OrderShipped extends Mailable
+class NewsletterSent extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -33,6 +33,6 @@ class OrderShipped extends Mailable
      */
     public function build()
     {
-        return $this->view('test');
+        return $this->view('newsletter');
     }
 }

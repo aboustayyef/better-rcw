@@ -7,13 +7,13 @@ use Embed\Embed;
 
 class Article 
 {
-    public $url, $description, $title, $image;
+    public $url, $description, $title;
     private $info;
 
-    public function __construct($title, $url)
+    public function __construct($url, $title="")
     {
     	$this->title = $title;
-    	$this->url = $this->expand($url);
+    	$this->url = $url;
     	try {
 	    	$this->info = Embed::create($this->url);
 	    	$this->description = $this->info->description;
@@ -21,10 +21,26 @@ class Article
     	} catch (\Exception $e) {
     		echo "\n problem with url $this->url \n";
     	}
+
+        // get more info from description.
+        $this->improveDescription();
     }
 
-    private function expand($url){
-    	// Function to to take a realclearworld url and find the final url
-    	return $url; // <--- for now
+    private function improveDescription(){
+    	// get improved content from mercury web parser
+
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'https://mercury.postlight.com/parser?url=' . $this->url, [
+            'headers' => [
+                'x-api-key' => env('MERCURY_KEY'),
+                'Content-Type'     => 'application/json',
+            ]
+        ]);
+
+        if ($res->getStatusCode() == 200){
+            $this->description = json_decode($res->getBody()->getContents())->excerpt;
+        }
     }
+
+
 }
