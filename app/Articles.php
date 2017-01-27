@@ -31,10 +31,14 @@ class Articles
 
         // sanitize for only articles (ignore other links)
         $nodes->each(function($node) use ($nodesCollection){
-            // nodes that contain the <strong> tag are not normal links. Remove 
-            if (!str_contains($node->html(), '<strong>')) {
-                $linkNode = $node->filter('a')->first();
-                $nodesCollection->push($linkNode);
+            try {
+                // nodes that contain the <strong> tag are not normal links. Remove 
+                if (!str_contains($node->html(), '<strong>')) {
+                    $linkNode = $node->filter('a')->first();
+                    $nodesCollection->push($linkNode);
+                }
+            } catch (\Exception $e) {
+                #nothing
             }
         });
 

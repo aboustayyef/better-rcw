@@ -38,7 +38,11 @@ class Article
         ]);
 
         if ($res->getStatusCode() == 200){
-            $this->description = json_decode($res->getBody()->getContents())->excerpt;
+            try {
+                $this->description = json_decode($res->getBody()->getContents())->excerpt;
+            } catch (\Exception $e) {
+                
+            }
         }
     }
 

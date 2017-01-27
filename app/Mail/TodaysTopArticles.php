@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use \App\Articles;
 
-class NewsletterSent extends Mailable
+class TodaysTopArticles extends Mailable
 {
     use Queueable, SerializesModels;
 

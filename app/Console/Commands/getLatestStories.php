@@ -41,6 +41,6 @@ class getLatestStories extends Command
     public function handle()
     {
 
-        \Mail::to('mustapha.hamoui@gmail.com')->send(new \App\Mail\NewsletterSent);
+        \Mail::to('mustapha.hamoui@gmail.com')->send(new \App\Mail\TodaysTopArticles);
     }
 }
